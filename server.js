@@ -3,6 +3,7 @@
 
 // init project
 var express = require('express');
+var timestamp = require('./app.js');
 var app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
@@ -18,13 +19,10 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
-});
-
-
+app.get('/api/timestamp/:date_string',function(req,res){
+        const out = timestamp(req.params.date_string)
+        res.json(out)
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
